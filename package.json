@@ -1,0 +1,32 @@
+{
+  "name": "gulp-angular-inline-template",
+  "version": "1.0.0",
+  "description": "Add <script type='text/ng-template' id=''>...</script> tags around around angular templates",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fiveladdercon/gulp-angular-inline-template.git"
+  },
+  "keywords": [
+    "angular",
+    "template",
+    "inline"
+  ],
+  "author": "fiveladdercon",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/fiveladdercon/gulp-angular-inline-template/issues"
+  },
+  "homepage": "https://github.com/fiveladdercon/gulp-angular-inline-template#readme",
+  "dependencies": {
+    "gulp-insert": "^0.5.0",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "gulp-util": "^3.0.7"
+  }
+}
