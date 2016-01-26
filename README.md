@@ -51,6 +51,7 @@ gulp.src('**/*.directive.html')
 
 ```
 index.html
+
 <html>
 <body>
 <div>
@@ -71,7 +72,7 @@ properties will not issue a server request:
 ```javascript
 angular.module('myApp').directive('myDialog', function () {
 	return {
-		templateUrl: 'dialog.directive.html',
+		templateUrl: 'dialog.directive.html', // Does not trigger an AJAX request
 		link: ...
 	};
 });
@@ -79,7 +80,7 @@ angular.module('myApp').directive('myDialog', function () {
 
 Note that if you minify your HTML, you need to minimize before wrapping your
 templates in script tags.  This is because script tags do not normally contain
-HTML and this can trip up minifier. Also pass a truthy value to the inline 
+HTML and this can trip up minifiers. Also pass a truthy value to the inline 
 operation to omit new lines in the output:
 
 ```
@@ -94,9 +95,9 @@ However this does not minimize the index.html file.  Instead, send
 it through the pipe and omit it from the processing step:
 
 ```
-gulp.src('**/*.html')
+gulp.src(['**/*.directive.html','index.html'])
 	.pipe(htmlmin())
-	.pipe(subset('index.html', inline(true), true))
+	.pipe(subset(/directive.html$/, inline(true)))
 	.pipe(splice('##directives##'))
 	.pipe(gulp.dest('dist'))
 ```
@@ -117,7 +118,7 @@ Without an options the inline template wraps file contents in script tags:
 
 #### minified : truthy
 
-Passing a truthy value as an argument removes new lines from the output.
+Passing a truthy value as an argument removes new lines from the script tags.
 
 ## Test
 
