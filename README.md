@@ -13,7 +13,7 @@ Wraps template HTML in ng-template script tags for inlining.
 Takes an angular directive template and wraps it in a ng-template script tag:
 
 ```
-directive.html
+dialog.directive.html
 
 <div class='dialog'>
   <h1>This is my dialog</h1>
@@ -24,23 +24,36 @@ directive.html
 ```javascript
 var inline = require('gulp-angular-inline-template');
 
-gulp.src('directive.html')
+gulp.src('dialog.directive.html')
 	.pipe(inline())
 	...
 ```
 
 ```
-directive.html
+dialog.directive.html
 
-<script type='text/ng-template' id='directive.html'>
-<div class='directive'>
-  <h1>This is my directive</h1>
+<script type='text/ng-template' id='dialog.directive.html'>
+<div class='dialog'>
+  <h1>This is my dialog</h1>
   <div ng-transclude></div>
 </div>
 </script>
 ```
 
 Directive templates can then be spliced into the index.html:
+
+```
+index.html
+
+<html>
+<body>
+<div>
+...
+</div>
+##directives##
+</body>
+</html>
+```
 
 ```
 gulp.src('**/*.directive.html')
@@ -57,19 +70,19 @@ index.html
 <div>
 ...
 </div>
-<script type='text/ng-template' id='first.directive.html'>...</script>
-<script type='text/ng-template' id='second.directive.html'>...</script>
-<script type='text/ng-template' id='third.directive.html'>...</script>
-<script type='text/ng-template' id='fourth.directive.html'>...</script>
+<script type='text/ng-template' id='dialog.directive.html'>...</script>
+<script type='text/ng-template' id='toast.directive.html'>...</script>
 ...
 </body>
 </html>
 ```
 
-Since templates are now shipped with the index.html, templateUrl directive
-properties will not issue a server request:
+Since templates are now shipped with the index.html and stored in the template
+cache, templateUrl directive properties will not issue server requests:
 
 ```javascript
+dialog.directive.js
+
 angular.module('myApp').directive('myDialog', function () {
 	return {
 		templateUrl: 'dialog.directive.html', // Does not trigger an AJAX request
